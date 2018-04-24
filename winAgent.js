@@ -12,10 +12,11 @@ module.exports = function(opts){
 
     var modules = {};
     // Config for Windows service
-    var agentPrefix         = opts.prefix;  //"Agent";
-    var agentDescPrefix     = opts.description;  //"Agent";
-    var agentScript         = opts.script;  //path.join(__dirname, 'serviceAgent.js'),
+    var agentPrefix         = opts.prefix;
+    var agentDescPrefix     = opts.description;
+    var agentScript         = opts.script;
     var agentFolder         = opts.folder || path.join(process.cwd(), 'agents');
+    var execPath            = opts.execPath || null; //Default to node
     try{
         fs.mkdirSync(agentFolder);
     }catch(e){}
@@ -41,6 +42,7 @@ module.exports = function(opts){
           description: agentDescPrefix + win_config.username,
         //   script: path.join(__dirname, 'serviceAgent.js'),
           script: agentScript,
+          execPath: execPath,
           env: [{
             name: "agentId",
             value: win_config.agentId
